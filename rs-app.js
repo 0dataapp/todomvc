@@ -18,9 +18,9 @@ const altStore = {
     const todos = await remoteStorage.todos.getAllTodos();
     callback.call(
       this,
-      todos.filter(function (todo) {
+      todos.filter(function (e) {
         for (var q in query) {
-          if (query[q] !== todo[q])
+          if (query[q] !== e[q])
             return false;
         }
 
