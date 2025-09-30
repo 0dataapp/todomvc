@@ -32,6 +32,8 @@ const todos = {
       object.title = object.description;
       delete object.description;
       
+      object.completed = !!object.completed;
+      
       return Object.assign(Object.assign({}, object), properties);
     };
 
