@@ -52,6 +52,31 @@ const altStore = {
 
 };
 
+// remoteStorage events
+remoteStorage.todos.on('change', (event) => {
+  if (event.newValue && !event.oldValue) {
+    return todo.controller._filter(true);
+  }
+
+  if (!event.newValue && event.oldValue) {
+    todo.controller.view.render("removeItem", event.oldValue.id);
+
+    return todo.controller._filter();
+  }
+
+  if (event.newValue && event.oldValue) {
+    console.log(`Change from ${ event.origin } (change)`, event);
+
+    if (event.origin !== 'conflict' || (event.oldValue.description === event.newValue.description)) {
+      return todo.controller._filter(true);
+    }
+
+    return todo.controller._filter();
+  }
+
+  console.log(`Change from ${ event.origin }`, event);
+});
+
 // Setup after page loads
 document.addEventListener('DOMContentLoaded', () => {
   (new Widget(remoteStorage)).attach(document.body.insertBefore(document.createElement('widget-container'), document.querySelector('.todoapp')));
