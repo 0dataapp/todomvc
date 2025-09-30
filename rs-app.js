@@ -88,5 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // trigger app setup from `app.js`
     todo.controller.setView(document.location.hash);
   });
+
+  remoteStorage.on('disconnected', () => todo.controller._filter());
   
 });
