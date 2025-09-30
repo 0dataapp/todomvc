@@ -34,16 +34,12 @@ const altStore = {
   },
 
   async save (updateData, callback = function () {}, id) {
-    if (id) {
-      id = id.toString();
-    }
-
     const todos = await remoteStorage.todos.getAllTodos();
 
     const match = todos.filter(e => e.id === id).shift();
 
     // If an ID was actually given, find the item and update each property
-    updateData = await (id && match ? remoteStorage.todos.updateTodo(id, Object.assign(match, updateData)) : remoteStorage.todos.addTodo(updateData));
+    updateData = await (id && match ? remoteStorage.todos.updateTodo(id.toString(), Object.assign(match, updateData)) : remoteStorage.todos.addTodo(updateData));
 
     callback.call(this, id ? todos : [updateData]);
   },
