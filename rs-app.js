@@ -48,14 +48,10 @@ const altStore = {
     callback.call(this, id ? todos : [updateData]);
   },
 
-    id = id.toString();
-
-    const todos = await remoteStorage.todos.getAllTodos();
   async remove (id, callback = function () {}) {
+    await remoteStorage.todos.removeTodo(id.toString());
 
-    remoteStorage.todos.removeTodo(id);
-
-    callback.call(this, todos.filter(e => e.id !== id));
+    callback.call(this, await remoteStorage.todos.getAllTodos());
   },
 
 };
