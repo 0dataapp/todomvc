@@ -1,5 +1,15 @@
 # TodoMVC: JavaScript Es5
 
+This is [TodoMVC](https://todomvc.com/examples/javascript-es5/dist/) integrated with [remoteStorage.js](https://remotestorage.io/rs.js/docs/).
+
+https://todomvc.github.rosano.ca
+
+You can run this by simply opening `index.html` in your browser, and it will even sync between multiple tabs.
+
+---
+
+From the original [project source](https://github.com/tastejs/todomvc/tree/gh-pages/examples/javascript-es5):
+
 ## Description
 
 This application uses JavaScript with ES5 language features to implement a todo application.
