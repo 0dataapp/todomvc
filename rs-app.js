@@ -33,8 +33,10 @@ const altStore = {
     callback.call(this, await remoteStorage.todos.getAllTodos());
   },
 
-    id = id.toString();
   async save (updateData, callback = function () {}, id) {
+    if (id) {
+      id = id.toString();
+    }
 
     const todos = await remoteStorage.todos.getAllTodos();
 
