@@ -151,9 +151,9 @@
         var self = this;
         self.model.remove(id, function () {
             self.view.render("removeItem", id);
-        });
 
-        self._filter();
+            self._filter();
+        });
     };
 
     /**
