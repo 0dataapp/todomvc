@@ -8,3 +8,7 @@ remoteStorage.access.claim('todos', 'rw');
 
 remoteStorage.todos.cacheTodos();
 
+// Setup after page loads
+document.addEventListener('DOMContentLoaded', () => {
+  (new Widget(remoteStorage)).attach(document.body.insertBefore(document.createElement('widget-container'), document.querySelector('.todoapp')));
+});
