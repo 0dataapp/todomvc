@@ -2,7 +2,7 @@
 
 This is [TodoMVC](https://todomvc.com/examples/javascript-es5/dist/) integrated with [remoteStorage.js](https://remotestorage.io/rs.js/docs/).
 
-https://todomvc.github.rosano.ca
+https://todomvc.rosano.ca
 
 You can run this by simply opening `index.html` in your browser, and it will even sync between multiple tabs.
 
