@@ -13,6 +13,14 @@ const todos = {
       return Object.assign(Object.assign({}, object), properties);
     };
 
+    const tryInt = function (id) {
+      try {
+        return parseInt(id);
+      } catch {
+        return id;
+      }
+    };
+
     const formatOut = function (object, properties) {
       object.description = object.title;
       delete object.title;
@@ -42,7 +50,7 @@ const todos = {
 
         removeTodo: privateClient.remove.bind(privateClient),
 
-        getAllTodos: () => privateClient.getAll('', false).then(map => Object.entries(map).reduce((coll, item) => coll.concat(formatIn(item[1], { id: item[0] })), [])),
+        getAllTodos: () => privateClient.getAll('', false).then(map => Object.entries(map).reduce((coll, item) => coll.concat(formatIn(item[1], { id: tryInt(item[0]) })), [])),
       }
     }
   }
