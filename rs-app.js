@@ -29,17 +29,14 @@ const altStore = {
     );
   },
 
-  async findAll (callback) {
-    callback = callback || function () {};
+  async findAll (callback = function () {}) {
     callback.call(this, await remoteStorage.todos.getAllTodos());
   },
 
-  async save (updateData, callback, id) {
     id = id.toString();
+  async save (updateData, callback = function () {}, id) {
 
     const todos = await remoteStorage.todos.getAllTodos();
-
-    callback = callback || function () {};
 
     const match = todos.filter(e => e.id === id).shift();
 
@@ -49,10 +46,10 @@ const altStore = {
     callback.call(this, id ? todos : [updateData]);
   },
 
-  async remove (id, callback) {
     id = id.toString();
 
     const todos = await remoteStorage.todos.getAllTodos();
+  async remove (id, callback = function () {}) {
 
     remoteStorage.todos.removeTodo(id);
 
