@@ -42,7 +42,7 @@ const todos = {
       exports: {
         cacheTodos: () => privateClient.cache(''),
 
-        on: privateClient.on,
+        handle: privateClient.on,
 
         addTodo: (object) => {
           id = `${ new Date().getTime() }`;

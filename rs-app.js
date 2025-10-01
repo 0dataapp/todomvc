@@ -53,7 +53,7 @@ const altStore = {
 };
 
 // remoteStorage events
-remoteStorage.todos.on('change', (event) => {
+remoteStorage.todos.handle('change', (event) => {
   if (event.newValue && !event.oldValue) {
     return todo.controller._filter(true);
   }
