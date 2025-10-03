@@ -35,7 +35,7 @@ const todos = {
       
       object.completed = !!object.completed;
       
-      return Object.assign(Object.assign({}, object), properties);
+      return inject(object, properties);
     };
 
     return {
