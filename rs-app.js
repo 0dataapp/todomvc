@@ -90,5 +90,13 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   remoteStorage.on('disconnected', () => todo.controller._filter());
-  
+
+  document.body.appendChild(Object.assign(document.createElement('style'), {
+    innerHTML: `.toggle-all + label:before {
+  content: '✔︎';
+  -webkit-transform: unset;
+  transform: unset;`,
+  }));
+
+  document.querySelector('.toggle-all-label').title = 'Mark all as complete';
 });
