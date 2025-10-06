@@ -39,7 +39,7 @@ const altStore = {
     const match = id ? todos.filter(e => e.id.toString() === id.toString()).shift() : null;
 
     // If an ID was actually given, find the item and update each property
-    updateData = await (match ? remoteStorage.todos.updateTodo(id.toString(), Object.assign(match, updateData)) : remoteStorage.todos.addTodo(updateData));
+    await (match ? remoteStorage.todos.updateTodo(id.toString(), Object.assign(match, updateData)) : remoteStorage.todos.addTodo(updateData));
 
     callback.call(this, id ? todos : [updateData]);
   },
