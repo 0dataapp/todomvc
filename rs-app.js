@@ -41,7 +41,7 @@ const altStore = {
     // If an ID was actually given, find the item and update each property
     await (match ? remoteStorage.todos.updateTodo(id.toString(), Object.assign(match, updateData)) : remoteStorage.todos.addTodo(updateData));
 
-    callback.call(this, id ? todos : [updateData]);
+    callback.call(this, id ? todos.map(e => e.id.toString() === id.toString() ? match : e) : [updateData]);
   },
 
   async remove (id, callback = function () {}) {
