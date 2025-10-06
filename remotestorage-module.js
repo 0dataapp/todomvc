@@ -49,7 +49,7 @@ const todos = {
           return privateClient.storeObject('todo', id, formatOut(object, { id }))
         },
 
-        updateTodo: (id, object) => privateClient.storeObject('todo', id, formatOut(object, { id })),
+        updateTodo: (id, object) => privateClient.storeObject('todo', id, formatOut(object)),
 
         removeTodo: privateClient.remove.bind(privateClient),
 
