@@ -34,14 +34,14 @@ const altStore = {
   },
 
   async save (updateData, callback = function () {}, id) {
-    const todos = await remoteStorage.todos.getAllTodos();
+    const items = await remoteStorage.todos.getAllTodos();
 
-    const match = id ? todos.filter(e => e.id.toString() === id.toString()).shift() : null;
+    const match = id ? items.filter(e => e.id.toString() === id.toString()).shift() : null;
 
     // If an ID was actually given, find the item and update each property
-    await (match ? remoteStorage.todos.updateTodo(id.toString(), Object.assign(match, updateData)) : remoteStorage.todos.addTodo(updateData));
+    const data = await (match ? remoteStorage.todos.updateTodo(id.toString(), Object.assign(match, updateData)) : remoteStorage.todos.addTodo(updateData));
 
-    callback.call(this, id ? todos.map(e => e.id.toString() === id.toString() ? match : e) : [updateData]);
+    callback.call(this, id ? items.map(e => e.id.toString() === id.toString() ? data : e) : [data]);
   },
 
   async remove (id, callback = function () {}) {

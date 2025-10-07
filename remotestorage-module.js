@@ -10,10 +10,6 @@ const todos = {
       required: ['description'],
     });
 
-    const inject = function (object, properties) {
-      return Object.assign(Object.assign({}, object), properties);
-    };
-
     const tryInt = function (id) {
       try {
         return parseInt(id);
@@ -22,40 +18,44 @@ const todos = {
       }
     };
 
-    const dehydrate = function (object, properties) {
+    const dehydrate = function (object) {
       object.description = object.title;
       delete object.title;
 
       delete object.id;
 
-      return inject(object, properties);
+      return object;
     };
 
-    const hydrate = function (object, properties) {
+    const hydrate = function (path, object) {
       object.title = object.description;
       delete object.description;
       
       object.completed = !!object.completed;
-      
-      return inject(object, properties);
+
+      return Object.assign(object, {
+        id: tryInt(path),
+      });
     };
 
     return {
       exports: {
+        hydrate,
+
         cacheTodos: () => privateClient.cache(''),
 
         handle: privateClient.on,
 
         addTodo: (object) => {
           id = `${ new Date().getTime() }`;
-          return privateClient.storeObject('todo', id, dehydrate(object))
+          return privateClient.storeObject('todo', id, dehydrate(object)).then(e => hydrate(id, object));
         },
 
-        updateTodo: (id, object) => privateClient.storeObject('todo', id, dehydrate(object)),
+        updateTodo: (id, object) => privateClient.storeObject('todo', id, dehydrate(object)).then(e => hydrate(id, object)),
 
         removeTodo: privateClient.remove.bind(privateClient),
 
-        getAllTodos: () => privateClient.getAll('', false).then(map => Object.entries(map).reduce((coll, item) => coll.concat(hydrate(item[1], { id: tryInt(item[0]) })), [])),
+        getAllTodos: () => privateClient.getAll('', false).then(map => Object.entries(map).reduce((coll, item) => coll.concat(hydrate(item[0], item[1])), [])),
       }
     }
   }
