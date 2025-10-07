@@ -22,14 +22,16 @@ const todos = {
       }
     };
 
-    const formatOut = function (object, properties) {
+    const dehydrate = function (object, properties) {
       object.description = object.title;
       delete object.title;
+
+      delete object.id;
 
       return inject(object, properties);
     };
 
-    const formatIn = function (object, properties) {
+    const hydrate = function (object, properties) {
       object.title = object.description;
       delete object.description;
       
@@ -46,14 +48,14 @@ const todos = {
 
         addTodo: (object) => {
           id = `${ new Date().getTime() }`;
-          return privateClient.storeObject('todo', id, formatOut(object, { id }))
+          return privateClient.storeObject('todo', id, dehydrate(object))
         },
 
-        updateTodo: (id, object) => privateClient.storeObject('todo', id, formatOut(object)),
+        updateTodo: (id, object) => privateClient.storeObject('todo', id, dehydrate(object)),
 
         removeTodo: privateClient.remove.bind(privateClient),
 
-        getAllTodos: () => privateClient.getAll('', false).then(map => Object.entries(map).reduce((coll, item) => coll.concat(formatIn(item[1], { id: tryInt(item[0]) })), [])),
+        getAllTodos: () => privateClient.getAll('', false).then(map => Object.entries(map).reduce((coll, item) => coll.concat(hydrate(item[1], { id: tryInt(item[0]) })), [])),
       }
     }
   }
