@@ -77,7 +77,7 @@ remoteStorage.todos.handle('change', (event) => {
   console.log(`Change from ${ event.origin }`, event);
 });
 
-// Setup after page loads
+// setup after page loads
 document.addEventListener('DOMContentLoaded', () => {
   (new Widget(remoteStorage)).attach(document.body.insertBefore(document.createElement('widget-container'), document.querySelector('.todoapp')));
 
