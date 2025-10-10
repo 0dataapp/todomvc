@@ -99,4 +99,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }));
 
   document.querySelector('.toggle-all-label').title = 'Mark all as complete';
+
+  if (window.self !== window.top) {
+    document.querySelector('header h1').remove();
+    document.querySelector('.todoapp').style.marginTop = '30px';
+  }
 });
